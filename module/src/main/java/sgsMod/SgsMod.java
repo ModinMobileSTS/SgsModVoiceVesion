@@ -282,7 +282,7 @@ public class SgsMod implements EditCardsSubscriber,
         BaseMod.loadCustomStringsFile(MOD_ID, CardStrings.class, "localization-sgs/" + language + "/SGS_cards-zh.json");
         BaseMod.loadCustomStringsFile(MOD_ID, PowerStrings.class, "localization-sgs/" + language + "/SGS_powers_zh.json");
         BaseMod.loadCustomStringsFile(MOD_ID, RelicStrings.class, "localization-sgs/" + language + "/SGS_relics-zh.json");
-        BaseMod.loadCustomStringsFile(MOD_ID, CharacterStrings.class, "localization-sgs/" + language + "/characters-sgs.json");
+
 
 
     }
