@@ -7,8 +7,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 21
-        versionName = "1.0"
+        minSdk = 24
+        versionName = "1.1"
     }
 
     compileOptions {
@@ -24,7 +24,7 @@ android {
     }
 
     applicationVariants.all {
-        val outputFileName = "template-$versionName.jar"
+        val outputFileName = "三国杀Mods手机版-$versionName.jar"
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
             output.outputFileName = outputFileName

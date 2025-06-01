@@ -1,10 +1,11 @@
 {
-  "modId": "template",
-  "modName": "模板 mod",
+  "modId": "SgsMod",
+  "modName": "三国杀 Mod",
   "modVersion": "1.0",
   "descriptions": {
-    "zhs": ["template mod"]
+    "zhs": ["移植电脑版同名mod"],
+    "eng": ["STS android test mod."]
   },
-  "authorList": ["sam"],
+  "authorList": ["Dieyou","minahuatang"],
   "dependencies": []
 }
