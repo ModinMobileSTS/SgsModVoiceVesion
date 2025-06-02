@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.megacrit.cardcrawl.cards;
 
 import com.badlogic.gdx.Gdx;
@@ -7,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
@@ -15,20 +19,15 @@ import com.megacrit.cardcrawl.android.SpireAndroidLogger;
 import com.megacrit.cardcrawl.android.mods.BaseMod;
 import com.megacrit.cardcrawl.android.mods.helpers.CardColorBundle;
 import com.megacrit.cardcrawl.blights.AbstractBlight;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
+import com.megacrit.cardcrawl.cards.DescriptionLine;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.OverlayMenu;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardHelper;
-import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.GameDataStringBuilder;
-import com.megacrit.cardcrawl.helpers.GameDictionary;
-import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MathHelper;
-import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -44,12 +43,13 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
+
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class AbstractCard implements Comparable<AbstractCard> {
+public abstract class AbstractCard implements   Comparable<AbstractCard>   {
     private static final SpireAndroidLogger logger = SpireAndroidLogger.getLogger(AbstractCard.class);
-    public AbstractCard.CardType type;
+    public CardType type;
     public int cost;
     public int costForTurn;
     public int price;
@@ -59,8 +59,8 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     public boolean retain;
     public boolean selfRetain;
     public boolean dontTriggerOnUseCard;
-    public AbstractCard.CardRarity rarity;
-    public AbstractCard.CardColor color;
+    public CardRarity rarity;
+    public CardColor color;
     public boolean isInnate;
     public boolean isLocked;
     public boolean showEvokeValue;
@@ -86,7 +86,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     public boolean returnToHand;
     public boolean shuffleBackIntoDrawPile;
     public boolean isEthereal;
-    public ArrayList<AbstractCard.CardTags> tags;
+    public ArrayList<CardTags> tags;
     public int[] multiDamage;
     protected boolean isMultiDamage;
     public int baseDamage;
@@ -106,7 +106,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     public boolean isMagicNumberModified;
     protected DamageType damageType;
     public DamageType damageTypeForTurn;
-    public AbstractCard.CardTarget target;
+    public CardTarget target;
     public boolean purgeOnUse;
     public boolean exhaustOnUseOnce;
     public boolean exhaustOnFire;
@@ -115,16 +115,16 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     private static TextureAtlas orbAtlas;
     private static TextureAtlas cardAtlas;
     private static TextureAtlas oldCardAtlas;
-    public static AtlasRegion orb_red;
-    public static AtlasRegion orb_green;
-    public static AtlasRegion orb_blue;
-    public static AtlasRegion orb_purple;
-    public static AtlasRegion orb_card;
-    public static AtlasRegion orb_potion;
-    public static AtlasRegion orb_relic;
-    public static AtlasRegion orb_special;
-    public AtlasRegion portrait;
-    public AtlasRegion jokePortrait;
+    public static TextureAtlas.AtlasRegion orb_red;
+    public static TextureAtlas.AtlasRegion orb_green;
+    public static TextureAtlas.AtlasRegion orb_blue;
+    public static TextureAtlas.AtlasRegion orb_purple;
+    public static TextureAtlas.AtlasRegion orb_card;
+    public static TextureAtlas.AtlasRegion orb_potion;
+    public static TextureAtlas.AtlasRegion orb_relic;
+    public static TextureAtlas.AtlasRegion orb_special;
+    public TextureAtlas.AtlasRegion portrait;
+    public TextureAtlas.AtlasRegion jokePortrait;
     private static final UIStrings uiStrings;
     public static final String[] TEXT;
     public static float typeWidthAttack;
@@ -264,26 +264,26 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     public Color glowColor;
 
     public boolean isStarterStrike() {
-        return this.hasTag(AbstractCard.CardTags.STRIKE) && this.rarity.equals(AbstractCard.CardRarity.BASIC);
+        return this.hasTag(CardTags.STRIKE) && this.rarity.equals(CardRarity.BASIC);
     }
 
     public boolean isStarterDefend() {
-        return this.hasTag(AbstractCard.CardTags.STARTER_DEFEND) && this.rarity.equals(AbstractCard.CardRarity.BASIC);
+        return this.hasTag(CardTags.STARTER_DEFEND) && this.rarity.equals(CardRarity.BASIC);
     }
 
-    public AbstractCard(String id, String name, String imgUrl, int cost, String rawDescription, AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity, AbstractCard.CardTarget target) {
+    public AbstractCard(String id, String name, String imgUrl, int cost, String rawDescription, CardType type, CardColor color, CardRarity rarity, CardTarget target) {
         this(id, name, imgUrl, cost, rawDescription, type, color, rarity, target, DamageType.NORMAL);
     }
 
-    public AbstractCard(String id, String name, String deprecatedJokeUrl, String imgUrl, int cost, String rawDescription, AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity, AbstractCard.CardTarget target) {
+    public AbstractCard(String id, String name, String deprecatedJokeUrl, String imgUrl, int cost, String rawDescription, CardType type, CardColor color, CardRarity rarity, CardTarget target) {
         this(id, name, imgUrl, cost, rawDescription, type, color, rarity, target, DamageType.NORMAL);
     }
 
-    public AbstractCard(String id, String name, String deprecatedJokeUrl, String imgUrl, int cost, String rawDescription, AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity, AbstractCard.CardTarget target, DamageType dType) {
+    public AbstractCard(String id, String name, String deprecatedJokeUrl, String imgUrl, int cost, String rawDescription, CardType type, CardColor color, CardRarity rarity, CardTarget target, DamageType dType) {
         this(id, name, imgUrl, cost, rawDescription, type, color, rarity, target, dType);
     }
 
-    public AbstractCard(String id, String name, String imgUrl, int cost, String rawDescription, AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity, AbstractCard.CardTarget target, DamageType dType) {
+    public AbstractCard(String id, String name, String imgUrl, int cost, String rawDescription, CardType type, CardColor color, CardRarity rarity, CardTarget target, DamageType dType) {
         this.chargeCost = -1;
         this.isCostModified = false;
         this.isCostModifiedForTurn = false;
@@ -294,7 +294,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.isLocked = false;
         this.showEvokeValue = false;
         this.showEvokeOrbCount = 0;
-        this.keywords = new ArrayList<>();
+        this.keywords = new ArrayList();
         this.isUsed = false;
         this.upgraded = false;
         this.timesUpgraded = 0;
@@ -310,7 +310,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.returnToHand = false;
         this.shuffleBackIntoDrawPile = false;
         this.isEthereal = false;
-        this.tags = new ArrayList<>();
+        this.tags = new ArrayList();
         this.isMultiDamage = false;
         this.baseDamage = -1;
         this.baseBlock = -1;
@@ -327,7 +327,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.isDamageModified = false;
         this.isBlockModified = false;
         this.isMagicNumberModified = false;
-        this.target = AbstractCard.CardTarget.ENEMY;
+        this.target = CardTarget.ENEMY;
         this.purgeOnUse = false;
         this.exhaustOnUseOnce = false;
         this.exhaustOnFire = false;
@@ -342,7 +342,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.typeColor = new Color(0.35F, 0.35F, 0.35F, 0.0F);
         this.targetAngle = 0.0F;
         this.angle = 0.0F;
-        this.glowList = new ArrayList<>();
+        this.glowList = new ArrayList();
         this.glowTimer = 0.0F;
         this.isGlowing = false;
         this.portraitImg = null;
@@ -359,16 +359,17 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.hoverDuration = 0.0F;
         this.cardsToPreview = null;
         this.newGlowTimer = 0.0F;
-        this.description = new ArrayList<>();
+        this.description = new ArrayList();
         this.inBottleFlame = false;
         this.inBottleLightning = false;
         this.inBottleTornado = false;
         this.color = color;
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
         if (bundle != null) {
             this.glowColor = bundle.glowColor.cpy();
         }
+
         this.originalName = name;
         this.name = name;
         this.cardID = id;
@@ -393,7 +394,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.damageTypeForTurn = dType;
         this.createCardImage();
         if (name == null || rawDescription == null) {
-            logger.info("Card initialized incorrecty");
+            logger.info("Card initialized incorrecty", new Object[0]);
         }
 
         this.initializeTitle();
@@ -415,7 +416,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         orb_potion = orbAtlas.findRegion("potion");
         orb_relic = orbAtlas.findRegion("relic");
         orb_special = orbAtlas.findRegion("special");
-        logger.info("Card Image load time: " + (System.currentTimeMillis() - startTime) + "ms");
+        logger.info("Card Image load time: " + (System.currentTimeMillis() - startTime) + "ms", new Object[0]);
     }
 
     public static void initializeDynamicFrameWidths() {
@@ -475,6 +476,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
 
                 String keywordTmp = word.toLowerCase();
                 keywordTmp = this.dedupeKeyword(keywordTmp);
+                GlyphLayout var10000;
                 if (GameDictionary.keywords.containsKey(keywordTmp)) {
                     if (!this.keywords.contains(keywordTmp)) {
                         this.keywords.add(keywordTmp);
@@ -484,13 +486,15 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                     gl.setText(FontHelper.cardDescFont_N, sbuilder2);
                     float tmp = gl.width;
                     gl.setText(FontHelper.cardDescFont_N, word);
-                    gl.width += tmp;
+                    var10000 = gl;
+                    var10000.width += tmp;
                     isKeyword = true;
                 } else if (!word.isEmpty() && word.charAt(0) == '[') {
                     gl.reset();
                     gl.setText(FontHelper.cardDescFont_N, sbuilder2);
-                    gl.width += CARD_ENERGY_IMG_WIDTH;
-                    switch(this.color.name()) {
+                    var10000 = gl;
+                    var10000.width += CARD_ENERGY_IMG_WIDTH;
+                    switch (this.color.name()) {
                         case "RED":
                             if (!this.keywords.contains("[R]")) {
                                 this.keywords.add("[R]");
@@ -557,10 +561,10 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
             }
 
             if (Settings.isDev && numLines > 5) {
-                logger.info("WARNING: Card " + this.name + " has lots of text");
+                logger.info("WARNING: Card " + this.name + " has lots of text", new Object[0]);
             }
-
         }
+
     }
 
     public void initializeDescriptionCN() {
@@ -571,8 +575,9 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         String[] var3 = this.rawDescription.split(" ");
         int i = var3.length;
 
-        for(int var5 = 0; var5 < i; ++var5) {
-            String word = var3[var5];
+        int removeLine;
+        for(removeLine = 0; removeLine < i; ++removeLine) {
+            String word = var3[removeLine];
             word = word.trim();
             if (Settings.manualLineBreak || Settings.manualAndAutoLineBreak || !word.contains("NL")) {
                 if ((!word.equals("NL") || sbuilder.length() != 0) && !word.isEmpty()) {
@@ -595,7 +600,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                             currentWidth += gl.width;
                         }
                     } else if (!word.isEmpty() && word.charAt(0) == '[') {
-                        switch(this.color.name()) {
+                        switch (this.color.name()) {
                             case "RED":
                                 if (!this.keywords.contains("[R]")) {
                                     this.keywords.add("[R]");
@@ -720,12 +725,12 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
             this.description.add(new DescriptionLine(sbuilder.toString(), currentWidth));
         }
 
-        int removeLine = -1;
+        removeLine = -1;
 
         for(i = 0; i < this.description.size(); ++i) {
-            if ((this.description.get(i)).text.equals(LocalizedStrings.PERIOD)) {
+            if (((DescriptionLine)this.description.get(i)).text.equals(LocalizedStrings.PERIOD)) {
                 StringBuilder var10000 = new StringBuilder();
-                DescriptionLine var10002 = this.description.get(i - 1);
+                DescriptionLine var10002 = (DescriptionLine)this.description.get(i - 1);
                 var10002.text = var10000.append(var10002.text).append(LocalizedStrings.PERIOD).toString();
                 removeLine = i;
             }
@@ -736,19 +741,19 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         }
 
         if (Settings.isDev && numLines > 5) {
-            logger.info("WARNING: Card " + this.name + " has lots of text");
+            logger.info("WARNING: Card " + this.name + " has lots of text", new Object[0]);
         }
 
     }
 
-    public boolean hasTag(AbstractCard.CardTags tagToCheck) {
+    public boolean hasTag(CardTags tagToCheck) {
         return this.tags.contains(tagToCheck);
     }
 
     public boolean canUpgrade() {
-        if (this.type == AbstractCard.CardType.CURSE) {
+        if (this.type == CardType.CURSE) {
             return false;
-        } else if (this.type == AbstractCard.CardType.STATUS) {
+        } else if (this.type == CardType.STATUS) {
             return false;
         } else {
             return !this.upgraded;
@@ -817,7 +822,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     private String dedupeKeyword(String keyword) {
-        String retVal = GameDictionary.parentWord.get(keyword);
+        String retVal = (String)GameDictionary.parentWord.get(keyword);
         return retVal != null ? retVal : keyword;
     }
 
@@ -832,7 +837,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.isLocked = false;
         this.showEvokeValue = false;
         this.showEvokeOrbCount = 0;
-        this.keywords = new ArrayList<>();
+        this.keywords = new ArrayList();
         this.isUsed = false;
         this.upgraded = false;
         this.timesUpgraded = 0;
@@ -848,7 +853,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.returnToHand = false;
         this.shuffleBackIntoDrawPile = false;
         this.isEthereal = false;
-        this.tags = new ArrayList<>();
+        this.tags = new ArrayList();
         this.isMultiDamage = false;
         this.baseDamage = -1;
         this.baseBlock = -1;
@@ -865,7 +870,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.isDamageModified = false;
         this.isBlockModified = false;
         this.isMagicNumberModified = false;
-        this.target = AbstractCard.CardTarget.ENEMY;
+        this.target = CardTarget.ENEMY;
         this.purgeOnUse = false;
         this.exhaustOnUseOnce = false;
         this.exhaustOnFire = false;
@@ -880,7 +885,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.typeColor = new Color(0.35F, 0.35F, 0.35F, 0.0F);
         this.targetAngle = 0.0F;
         this.angle = 0.0F;
-        this.glowList = new ArrayList<>();
+        this.glowList = new ArrayList();
         this.glowTimer = 0.0F;
         this.isGlowing = false;
         this.portraitImg = null;
@@ -897,16 +902,17 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         this.hoverDuration = 0.0F;
         this.cardsToPreview = null;
         this.newGlowTimer = 0.0F;
-        this.description = new ArrayList<>();
+        this.description = new ArrayList();
         this.inBottleFlame = false;
         this.inBottleLightning = false;
         this.inBottleTornado = false;
         this.color = c.color;
         this.glowColor = BLUE_BORDER_GLOW_COLOR.cpy();
-        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
         if (bundle != null) {
             this.glowColor = bundle.glowColor.cpy();
         }
+
         this.name = c.name;
         this.rawDescription = c.rawDescription;
         this.cost = c.cost;
@@ -914,7 +920,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     private void createCardImage() {
-        switch(this.color.name()) {
+        switch (this.color.name()) {
             case "RED":
                 this.bgColor = RED_BG_COLOR.cpy();
                 this.backColor = RED_TYPE_BACK_COLOR.cpy();
@@ -956,7 +962,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                 this.descBoxColor = CURSE_DESC_BOX_COLOR.cpy();
                 break;
             default:
-                CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+                CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
                 if (bundle != null) {
                     this.bgColor = bundle.bgColor.cpy();
                     this.backColor = bundle.cardBackColor.cpy();
@@ -964,12 +970,12 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                     this.frameOutlineColor = bundle.frameOutlineColor.cpy();
                     this.descBoxColor = bundle.descBoxColor.cpy();
                 } else {
-                    logger.info("ERROR: Card color was NOT set for " + this.name);
+                    logger.info("ERROR: Card color was NOT set for " + this.name, new Object[0]);
                 }
         }
 
-        if (this.rarity != AbstractCard.CardRarity.COMMON && this.rarity != AbstractCard.CardRarity.BASIC && this.rarity != AbstractCard.CardRarity.CURSE) {
-            if (this.rarity == AbstractCard.CardRarity.UNCOMMON) {
+        if (this.rarity != CardRarity.COMMON && this.rarity != CardRarity.BASIC && this.rarity != CardRarity.CURSE) {
+            if (this.rarity == CardRarity.UNCOMMON) {
                 this.bannerColor = BANNER_COLOR_UNCOMMON.cpy();
                 this.imgFrameColor = IMG_FRAME_COLOR_UNCOMMON.cpy();
             } else {
@@ -1025,7 +1031,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
 
     public boolean cardPlayable(AbstractMonster m) {
         MonsterGroup group = AbstractDungeon.getMonsters();
-        if ((this.target != AbstractCard.CardTarget.ENEMY && this.target != AbstractCard.CardTarget.SELF_AND_ENEMY || m == null || !m.isDying) && group != null && !group.areMonstersBasicallyDead()) {
+        if ((this.target != CardTarget.ENEMY && this.target != CardTarget.SELF_AND_ENEMY || m == null || !m.isDying) && group != null && !group.areMonstersBasicallyDead()) {
             return true;
         } else {
             this.cantUseMessage = null;
@@ -1040,60 +1046,52 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         } else {
             Iterator var1 = AbstractDungeon.player.powers.iterator();
 
-            AbstractPower p;
-            do {
-                if (!var1.hasNext()) {
-                    if (AbstractDungeon.player.hasPower("Entangled") && this.type == AbstractCard.CardType.ATTACK) {
-                        this.cantUseMessage = TEXT[10];
-                        return false;
-                    }
-
-                    var1 = AbstractDungeon.player.relics.iterator();
-
-                    AbstractRelic r;
-                    do {
-                        if (!var1.hasNext()) {
-                            var1 = AbstractDungeon.player.blights.iterator();
-
-                            AbstractBlight b;
-                            do {
-                                if (!var1.hasNext()) {
-                                    var1 = AbstractDungeon.player.hand.group.iterator();
-
-                                    AbstractCard c;
-                                    do {
-                                        if (!var1.hasNext()) {
-                                            if (EnergyPanel.totalCount < this.costForTurn && !this.freeToPlay() && !this.isInAutoplay) {
-                                                this.cantUseMessage = TEXT[11];
-                                                return false;
-                                            }
-
-                                            return true;
-                                        }
-
-                                        c = (AbstractCard)var1.next();
-                                    } while(c.canPlay(this));
-
-                                    return false;
-                                }
-
-                                b = (AbstractBlight)var1.next();
-                            } while(b.canPlay(this));
-
-                            return false;
-                        }
-
-                        r = (AbstractRelic)var1.next();
-                    } while(r.canPlay(this));
-
+            while(var1.hasNext()) {
+                AbstractPower p = (AbstractPower)var1.next();
+                if (!p.canPlayCard(this)) {
+                    this.cantUseMessage = TEXT[13];
                     return false;
                 }
+            }
 
-                p = (AbstractPower)var1.next();
-            } while(p.canPlayCard(this));
+            if (AbstractDungeon.player.hasPower("Entangled") && this.type == CardType.ATTACK) {
+                this.cantUseMessage = TEXT[10];
+                return false;
+            } else {
+                var1 = AbstractDungeon.player.relics.iterator();
 
-            this.cantUseMessage = TEXT[13];
-            return false;
+                while(var1.hasNext()) {
+                    AbstractRelic r = (AbstractRelic)var1.next();
+                    if (!r.canPlay(this)) {
+                        return false;
+                    }
+                }
+
+                var1 = AbstractDungeon.player.blights.iterator();
+
+                while(var1.hasNext()) {
+                    AbstractBlight b = (AbstractBlight)var1.next();
+                    if (!b.canPlay(this)) {
+                        return false;
+                    }
+                }
+
+                var1 = AbstractDungeon.player.hand.group.iterator();
+
+                while(var1.hasNext()) {
+                    AbstractCard c = (AbstractCard)var1.next();
+                    if (!c.canPlay(this)) {
+                        return false;
+                    }
+                }
+
+                if (EnergyPanel.totalCount < this.costForTurn && !this.freeToPlay() && !this.isInAutoplay) {
+                    this.cantUseMessage = TEXT[11];
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         }
     }
 
@@ -1121,9 +1119,9 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     public boolean canUse(AbstractPlayer p, AbstractMonster m) {
-        if (this.type == AbstractCard.CardType.STATUS && this.costForTurn < -1 && !AbstractDungeon.player.hasRelic("Medical Kit")) {
+        if (this.type == CardType.STATUS && this.costForTurn < -1 && !AbstractDungeon.player.hasRelic("Medical Kit")) {
             return false;
-        } else if (this.type == AbstractCard.CardType.CURSE && this.costForTurn < -1 && !AbstractDungeon.player.hasRelic("Blue Candle")) {
+        } else if (this.type == CardType.CURSE && this.costForTurn < -1 && !AbstractDungeon.player.hasRelic("Blue Candle")) {
             return false;
         } else {
             return this.cardPlayable(m) && this.hasEnoughEnergy();
@@ -1145,7 +1143,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
             this.current_x = MathHelper.cardLerpSnap(this.current_x, this.target_x);
             this.current_y = MathHelper.cardLerpSnap(this.current_y, this.target_y);
             if (AbstractDungeon.player.hasRelic("Necronomicon")) {
-                if (this.cost >= 2 && this.type == AbstractCard.CardType.ATTACK && AbstractDungeon.player.getRelic("Necronomicon").checkTrigger()) {
+                if (this.cost >= 2 && this.type == CardType.ATTACK && AbstractDungeon.player.getRelic("Necronomicon").checkTrigger()) {
                     AbstractDungeon.player.getRelic("Necronomicon").beginLongPulse();
                 } else {
                     AbstractDungeon.player.getRelic("Necronomicon").stopPulse();
@@ -1262,8 +1260,8 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                 this.renderEnergy(sb);
                 this.hb.render(sb);
             }
-
         }
+
     }
 
     public void render(SpriteBatch sb, boolean selected) {
@@ -1323,7 +1321,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
 
     private void renderTint(SpriteBatch sb) {
         if (!Settings.hideCards) {
-            AtlasRegion cardBgImg = this.getCardBgAtlas();
+            TextureAtlas.AtlasRegion cardBgImg = this.getCardBgAtlas();
             if (cardBgImg != null) {
                 this.renderHelper(sb, this.tintColor, cardBgImg, this.current_x, this.current_y);
             } else {
@@ -1337,6 +1335,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         if (AbstractDungeon.player != null && Settings.hideCards) {
             this.renderHelper(sb, AbstractDungeon.player.getCardRenderColor(), this.getCardBgAtlas(), this.current_x, this.current_y, 1.0F + this.tintColor.a / 5.0F);
         }
+
     }
 
     public Texture getCardBg() {
@@ -1348,8 +1347,8 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         return null;
     }
 
-    public AtlasRegion getCardBgAtlas() {
-        switch(this.type) {
+    public TextureAtlas.AtlasRegion getCardBgAtlas() {
+        switch (this.type) {
             case ATTACK:
                 return ImageMaster.CARD_ATTACK_BG_SILHOUETTE;
             case CURSE:
@@ -1395,8 +1394,8 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     private void renderMainBorder(SpriteBatch sb) {
         if (this.isGlowing) {
             sb.setBlendFunction(770, 1);
-            AtlasRegion img;
-            switch(this.type) {
+            TextureAtlas.AtlasRegion img;
+            switch (this.type) {
                 case ATTACK:
                     img = ImageMaster.CARD_ATTACK_BG_SILHOUETTE;
                     break;
@@ -1418,12 +1417,12 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
 
     }
 
-    private void renderHelper(SpriteBatch sb, Color color, AtlasRegion img, float drawX, float drawY) {
+    private void renderHelper(SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY) {
         sb.setColor(color);
         sb.draw(img, drawX + img.offsetX - (float)img.originalWidth / 2.0F, drawY + img.offsetY - (float)img.originalHeight / 2.0F, (float)img.originalWidth / 2.0F - img.offsetX, (float)img.originalHeight / 2.0F - img.offsetY, (float)img.packedWidth, (float)img.packedHeight, this.drawScale * Settings.scale, this.drawScale * Settings.scale, this.angle);
     }
 
-    private void renderHelper(SpriteBatch sb, Color color, AtlasRegion img, float drawX, float drawY, float scale) {
+    private void renderHelper(SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY, float scale) {
         sb.setColor(color);
         sb.draw(img, drawX + img.offsetX - (float)img.originalWidth / 2.0F, drawY + img.offsetY - (float)img.originalHeight / 2.0F, (float)img.originalWidth / 2.0F - img.offsetX, (float)img.originalHeight / 2.0F - img.offsetY, (float)img.packedWidth, (float)img.packedHeight, this.drawScale * Settings.scale * scale, this.drawScale * Settings.scale * scale, this.angle);
     }
@@ -1489,9 +1488,9 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     private void renderAttackBg(SpriteBatch sb, float x, float y) {
-        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
         if (bundle != null) {
-            AtlasRegion region = bundle.getAttackBgRegion();
+            TextureAtlas.AtlasRegion region = bundle.getAttackBgRegion();
             if (region != null) {
                 this.renderHelper(sb, this.renderColor, region, x, y);
                 return;
@@ -1524,7 +1523,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     private void renderSkillBg(SpriteBatch sb, float x, float y) {
-        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
         if (bundle != null) {
             TextureAtlas.AtlasRegion region = bundle.getSkillBgRegion();
             if (region != null) {
@@ -1559,9 +1558,9 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
     }
 
     private void renderPowerBg(SpriteBatch sb, float x, float y) {
-        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
         if (bundle != null) {
-            AtlasRegion region = bundle.getPowerBgRegion();
+            TextureAtlas.AtlasRegion region = bundle.getPowerBgRegion();
             if (region != null) {
                 this.renderHelper(sb, this.renderColor, region, x, y);
                 return;
@@ -1863,32 +1862,38 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                         start_x += gl.width;
                     } else if (tmp.equals("[W]. ")) {
                         gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
-                        this.renderSmallEnergy(sb, orb_purple, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float) this.description.size() - 4.0F) / 2.0F - (float) i + 1.0F) * spacing);
-                        FontHelper.renderRotatedText(sb, font, LocalizedStrings.PERIOD, this.current_x, this.current_y, start_x - this.current_x + CARD_ENERGY_IMG_WIDTH * this.drawScale, (float) i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
-                        start_x += gl.width;
-                    } else if (tmp.equals("[E] ")) {
-                        gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
-                        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
-                        AtlasRegion region = null;
-                        if (bundle != null) {
-                            region = bundle.getEnergyOrbRegion();
-                        }
-                        this.renderSmallEnergy(sb, region == null ? orb_red : region, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
-                        start_x += gl.width;
-                    } else if (tmp.equals("[E]. ")) {
-                        gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
-                        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
-                        AtlasRegion region = null;
-                        if (bundle != null) {
-                            region = bundle.getEnergyOrbRegion();
-                        }
-                        this.renderSmallEnergy(sb, region == null ? orb_red : region, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
-                        FontHelper.renderRotatedText(sb, font, LocalizedStrings.PERIOD, this.current_x, this.current_y, start_x - this.current_x + CARD_ENERGY_IMG_WIDTH * this.drawScale, (float) i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
+                        this.renderSmallEnergy(sb, orb_purple, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
+                        FontHelper.renderRotatedText(sb, font, LocalizedStrings.PERIOD, this.current_x, this.current_y, start_x - this.current_x + CARD_ENERGY_IMG_WIDTH * this.drawScale, (float)i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
                         start_x += gl.width;
                     } else {
-                        gl.setText(font, tmp);
-                        FontHelper.renderRotatedText(sb, font, tmp, this.current_x, this.current_y, start_x - this.current_x + gl.width / 2.0F, (float)i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
-                        start_x += gl.width;
+                        CardColorBundle bundle;
+                        TextureAtlas.AtlasRegion region;
+                        if (tmp.equals("[E] ")) {
+                            gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
+                            bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+                            region = null;
+                            if (bundle != null) {
+                                region = bundle.getEnergyOrbRegion();
+                            }
+
+                            this.renderSmallEnergy(sb, region == null ? orb_red : region, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
+                            start_x += gl.width;
+                        } else if (tmp.equals("[E]. ")) {
+                            gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
+                            bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+                            region = null;
+                            if (bundle != null) {
+                                region = bundle.getEnergyOrbRegion();
+                            }
+
+                            this.renderSmallEnergy(sb, region == null ? orb_red : region, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
+                            FontHelper.renderRotatedText(sb, font, LocalizedStrings.PERIOD, this.current_x, this.current_y, start_x - this.current_x + CARD_ENERGY_IMG_WIDTH * this.drawScale, (float)i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
+                            start_x += gl.width;
+                        } else {
+                            gl.setText(font, tmp);
+                            FontHelper.renderRotatedText(sb, font, tmp, this.current_x, this.current_y, start_x - this.current_x + gl.width / 2.0F, (float)i * 1.45F * -font.getCapHeight() + draw_y - this.current_y + -6.0F, this.angle, true, this.textColor);
+                            start_x += gl.width;
+                        }
                     }
                 }
             }
@@ -1899,6 +1904,7 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
             FontHelper.renderRotatedText(sb, FontHelper.menuBannerFont, "? ? ?", this.current_x, this.current_y, 0.0F, -200.0F * Settings.scale * this.drawScale / 2.0F, this.angle, true, this.textColor);
             FontHelper.menuBannerFont.getData().setScale(1.0F);
         }
+
     }
 
     private String getDynamicValue(char key) {
@@ -2022,11 +2028,12 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                         start_x += gl.width;
                     } else if (tmp.equals("[E]")) {
                         gl.width = CARD_ENERGY_IMG_WIDTH * this.drawScale;
-                        CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
-                        AtlasRegion region = null;
+                        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+                        TextureAtlas.AtlasRegion region = null;
                         if (bundle != null) {
                             region = bundle.getEnergyOrbRegion();
                         }
+
                         this.renderSmallEnergy(sb, region == null ? orb_red : region, (start_x - this.current_x) / Settings.scale / this.drawScale, -100.0F - (((float)this.description.size() - 4.0F) / 2.0F - (float)i + 1.0F) * spacing);
                         start_x += gl.width;
                     } else {
@@ -2209,15 +2216,18 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
                     this.renderHelper(sb, this.renderColor, ImageMaster.CARD_COLORLESS_ORB, this.current_x, this.current_y);
                     break;
                 default:
-                    CardColorBundle bundle = BaseMod.getColorBundleMap().getOrDefault(this.color, null);
-                    if (bundle != null) {
-                        AtlasRegion region = bundle.getCardEnergyOrbRegion();
-                        if (region != null) {
-                            this.renderHelper(sb, this.renderColor, region, this.current_x, this.current_y);
-                            break;
+                    label62: {
+                        CardColorBundle bundle = (CardColorBundle)BaseMod.getColorBundleMap().getOrDefault(this.color, null);
+                        if (bundle != null) {
+                            TextureAtlas.AtlasRegion region = bundle.getCardEnergyOrbRegion();
+                            if (region != null) {
+                                this.renderHelper(sb, this.renderColor, region, this.current_x, this.current_y);
+                                break label62;
+                            }
                         }
+
+                        this.renderHelper(sb, this.renderColor, ImageMaster.CARD_COLORLESS_ORB, this.current_x, this.current_y);
                     }
-                    this.renderHelper(sb, this.renderColor, ImageMaster.CARD_COLORLESS_ORB, this.current_x, this.current_y);
             }
 
             Color costColor = Color.WHITE.cpy();
@@ -2983,7 +2993,6 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         return this.name;
     }
 
-    @Override
     public int compareTo(AbstractCard other) {
         return other == null ? 1 : this.cardID.compareTo(other.cardID);
     }
@@ -3101,26 +3110,15 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         GOLD_BORDER_GLOW_COLOR = Color.GOLD.cpy();
     }
 
-    public static enum CardType {
-        ATTACK,
-        SKILL,
-        POWER,
-        STATUS,
-        CURSE;
+    public static enum CardTarget {
+        ENEMY,
+        ALL_ENEMY,
+        SELF,
+        NONE,
+        SELF_AND_ENEMY,
+        ALL;
 
-        private CardType() {
-        }
-    }
-
-    public static enum CardRarity {
-        BASIC,
-        SPECIAL,
-        COMMON,
-        UNCOMMON,
-        RARE,
-        CURSE;
-
-        private CardRarity() {
+        private CardTarget() {
         }
     }
 
@@ -3131,7 +3129,6 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         public static final CardColor PURPLE = new CardColor("PURPLE");
         public static final CardColor COLORLESS = new CardColor("COLORLESS");
         public static final CardColor CURSE = new CardColor("CURSE");
-
         private String name;
 
         private CardColor(String name) {
@@ -3151,15 +3148,26 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         }
     }
 
-    public static enum CardTarget {
-        ENEMY,
-        ALL_ENEMY,
-        SELF,
-        NONE,
-        SELF_AND_ENEMY,
-        ALL;
+    public static enum CardRarity {
+        BASIC,
+        SPECIAL,
+        COMMON,
+        UNCOMMON,
+        RARE,
+        CURSE;
 
-        private CardTarget() {
+        private CardRarity() {
+        }
+    }
+
+    public static enum CardType {
+        ATTACK,
+        SKILL,
+        POWER,
+        STATUS,
+        CURSE;
+
+        private CardType() {
         }
     }
 
@@ -3185,4 +3193,3 @@ public abstract class AbstractCard implements Comparable<AbstractCard> {
         }
     }
 }
-

@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.megacrit.cardcrawl.android.mods.AssetLoader;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import sgsMod.SgsMod;
 
 public class ShanDianFlashEffect extends AbstractGameEffect {
     private float x;
@@ -24,7 +26,7 @@ public class ShanDianFlashEffect extends AbstractGameEffect {
             this.y = c.hb.cY;
         }
 
-        this.img = ImageMaster.loadImage("img/power_img/shandian.png");
+        this.img =  AssetLoader.getTexture(SgsMod.MOD_ID,"img/power_img/shandian.png");
 
         this.duration = 0.7F;
         this.startingDuration = 0.7F;
