@@ -19,9 +19,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://modinmobilests.github.io/maven/")
         mavenLocal()
     }
 }
 
-rootProject.name = "template"
+rootProject.name = "SgsModVoiceVesion"
 include(":module")

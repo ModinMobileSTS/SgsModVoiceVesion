@@ -1,16 +1,9 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.megacrit.cardcrawl.neow;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.neow.NeowEvent;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.rooms.AbstractRoom.RoomPhase;
 
 public class NeowRoom extends AbstractRoom {
     public NeowRoom(boolean isDone) {
@@ -54,6 +47,5 @@ public class NeowRoom extends AbstractRoom {
         if (this.event != null) {
             this.event.renderAboveTopPanel(sb);
         }
-
     }
 }

@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    compileOnly(fileTree("dir" to "libs", "include" to listOf("*.jar")))
+    compileOnly("com.megacrit.cardcrawl:SlayTheSpire-android-stub:1.1")
     //noinspection GradleDependency
     compileOnly("com.badlogicgames.gdx:gdx:1.9.10")
 }
